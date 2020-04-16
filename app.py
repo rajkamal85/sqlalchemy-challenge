@@ -7,7 +7,8 @@ from sqlalchemy import create_engine, func, and_, or_
 from flask import Flask, jsonify
 
 
-engine = create_engine("sqlite:///C:/Users/rajka/Desktop/UofT/Assignments/Assignment 8 - SqlAlchemy/Instructions/Resources/hawaii.sqlite")
+#engine = create_engine("sqlite:///C:/Users/rajka/Desktop/UofT/Assignments/Assignment 8 - SqlAlchemy/sqlalchemy-challenge/Resources/hawaii.sqlite")
+engine = create_engine("sqlite:///Resources/hawaii.sqlite")
 
 Base = automap_base()
 Base.prepare(engine, reflect=True)
@@ -97,12 +98,12 @@ def startdate(start):
     session.close()
 
     all_dates = []
-    for date, min, avg, max in results:
+    for date, min, max, avg in results:
         start_stats = {}
         start_stats["Date"] = date
         start_stats["TMIN"] = min
-        start_stats["TAVG"] = round(avg, 2)
         start_stats["TMAX"] = max
+        start_stats["TAVG"] = round(avg, 2)
         all_dates.append(start_stats)
 
     return jsonify(all_dates)
@@ -119,12 +120,12 @@ def start_end(start, end):
     session.close()
 
     allfilter_dates = []
-    for date, min, avg, max in results:
+    for date, min, max, avg in results:
         tobs_stats = {}
         tobs_stats["Date"] = date
         tobs_stats["TMIN"] = min
-        tobs_stats["TAVG"] = round(avg, 2)
         tobs_stats["TMAX"] = max
+        tobs_stats["TAVG"] = round(avg, 2)
         allfilter_dates.append(tobs_stats)
 
     return jsonify(allfilter_dates)
